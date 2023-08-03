@@ -30,7 +30,7 @@ def nav_button_div(text):
     """helper function to return the navigation buttons easily"""
     return html.Div(
         dbc.Button(
-            html.H4(text), style=dict(width="100%"), color="primary", outline=True
+            html.H4(text), style=dict(width="50%",align='center'), color="secondary", outline=True,size='small'
         )
     )
 
@@ -49,7 +49,8 @@ def get_logo():
 
 
 app.layout = html.Div(
-    [
+    [ # slide content
+        html.Div(id="page-content",style={'align':'center'}),
         # URL control
         dcc.Location(id="url", refresh=False),
         # navigation header
@@ -59,30 +60,31 @@ app.layout = html.Div(
                 html.Div(id="current-slide", style=dict(display="none", children="")),
                 # nav div
                 dbc.Row(
-                    style=dict(height="auto", position="sticky", margin="10px"),
+                    style=dict(height="auto", position="fixed", margin="10px",bottom='0',left='0'),
                     children=[
                         # logo
-                        dbc.Col(width=2, style=nav_style, children=[get_logo()]),
+                        #dbc.Col(width=2, style=nav_style, children=[get_logo()]),abo
                         # previous
                         dbc.Col(
-                            width=4,
+                            width=1,
                             style=nav_style,
                             children=[
                                 dcc.Link(
                                     id="previous-link",
                                     href="",
-                                    children=nav_button_div("<< Previous"),
+                                    children=nav_button_div("<"),
                                 ),
                             ],
                         ),  # end previous
                         # slide count
                         dbc.Col(
-                            width=2,
+                            width=1,
                             style=nav_style,
                             children=[
                                 dbc.DropdownMenu(
                                     id="slide-count",
-                                    size="lg",
+                                    color='secondary',
+                                    size="sm",
                                     children=[
                                         dbc.DropdownMenuItem(
                                             s,
@@ -95,13 +97,13 @@ app.layout = html.Div(
                         ),  # end slide count
                         # next
                         dbc.Col(
-                            width=4,
+                            width=1,
                             style=nav_style,
                             children=[
                                 dcc.Link(
                                     id="next-link",
                                     href="",
-                                    children=nav_button_div("Next >>"),
+                                    children=nav_button_div(">"),
                                 ),
                             ],
                         ),  # end next
@@ -109,8 +111,7 @@ app.layout = html.Div(
                 ),
             ],
         ),
-        # slide content
-        html.Div(id="page-content"),
+       
     ]
 )
 
